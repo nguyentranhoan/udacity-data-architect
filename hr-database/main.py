@@ -71,6 +71,7 @@ create table if not exists job_histories
 def get_data():
     data = pd.read_excel('hr-database/hr-dataset.xlsx')
     employees = data.drop_duplicates(subset=['EMP_ID']).get(['EMP_ID', 'EMP_NM', 'EMAIL', 'HIRE_DT', 'EDUCATION LEVEL']).values.tolist()
+    salary = data.drop_duplicates(subset=['EMP_ID']).get(['EMP_ID', 'SALARY']).values.tolist()
     employee_data = [(item[0],item[1],item[2],str(item[3]),item[4]) for item in employees]
     departments = [(idx, item) for idx,item in enumerate(data.DEPARTMENT.unique().tolist(), start=1)]
     location_data = data.drop_duplicates(subset=['LOCATION', 'CITY', 'STATE', 'ADDRESS']).get(['LOCATION', 'CITY', 'STATE', 'ADDRESS'])
@@ -81,6 +82,8 @@ def get_data():
     cur.executemany("""INSERT INTO departments Values(?,?);""", departments)
     cur.executemany("""INSERT INTO location Values(?,?,?,?,?);""", location)
     cur.executemany("""INSERT INTO job_titles Values(?,?);""", job_titles)
+    # cur.executemany("""INSERT INTO salary Values(?,?,?);""", salary)
+
     con.commit()
 
     sql_departments = pd.read_sql_query("select id as DEPT_ID, name as DEPARTMENT from departments", con)
@@ -94,12 +97,18 @@ def get_data():
     # job_histories
     jh_data = pd.merge(data, sql_job_titles, how='inner', on='JOB_TITLE')
     jh_data = pd.merge(jh_data, sql_departments, how='inner', on='DEPARTMENT')
-    jh_data = pd.merge(jh_data, sql_location, how='inner', on=['LOCATION', 'CITY', 'STATE', 'ADDRESS']).get(['JT_ID', 'HIRE_DT', 'END_DT', 'EMP_ID', 'DEPT_ID', 'LOCATION_ID', 'SALARY'])
+    jh_data = pd.merge(jh_data, sql_location, how='inner', on=['LOCATION', 'CITY', 'STATE', 'ADDRESS']).get(['JT_ID', 'HIRE_DT', 'END_DT', 'EMP_ID', 'DEPT_ID', 'LOCATION_ID'])
     jh_data = [(idx, item[0], str(item[1]), str(item[2]), item[3], item[4], item[5], item[6]) for idx,item in enumerate(jh_data.values.tolist(), start=1)]
-    cur.executemany("""INSERT INTO job_histories Values(?,?,?,?,?,?,?,?);""", jh_data)
+    cur.executemany("""INSERT INTO job_histories Values(?,?,?,?,?,?,?);""", jh_data)
 
 
     con.commit()
 
 create_table()
 get_data()
+
+
+tables = ['employees', 'departments', 'department_lead', 'location', 'job_titles', 'job_histories']
+for table in tables:
+    query = pd.read_sql_query(f"select * from {table} limit 2", con)
+    print(table,"\n",query)

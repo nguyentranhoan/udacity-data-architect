@@ -23,9 +23,7 @@ create table department_lead
 	department_id bigint
 		references departments,
 	manager_id TEXT
-		references employees,
-	start_date TEXT not null,
-	end_date TEXT
+		references employees
 );
 
 create table job_titles
@@ -59,6 +57,11 @@ create table job_histories
 		references departments,
 	location_id bigint
 		references location,
-	salary float not null
+	salarys_id float references salary(id)
 );
 
+create table salary (
+	id INTEGER
+		primary key autoincrement,
+	salary float not null
+)

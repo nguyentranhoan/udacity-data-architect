@@ -1,0 +1,137 @@
+create table STAGING.BUSINESS
+(
+    BUSINESS_ID                           VARCHAR,
+    NAME                                  VARCHAR,
+    ADDRESS                               VARCHAR,
+    CITY                                  VARCHAR,
+    STATE                                 VARCHAR,
+    POSTAL_CODE                           NUMBER,
+    LATITUDE                              DOUBLE,
+    LONGITUDE                             DOUBLE,
+    STARS                                 NUMBER(3, 2),
+    REVIEW_COUNT                          NUMBER,
+    IS_OPEN                               NUMBER,
+    ATTRIBUTES_NOISELEVEL                 VARCHAR,
+    ATTRIBUTES_BIKEPARKING                BOOLEAN,
+    ATTRIBUTES_RESTAURANTSATTIRE          VARCHAR,
+    ATTRIBUTES_BUSINESSACCEPTSCREDITCARDS BOOLEAN,
+    ATTRIBUTES_BUSINESSPARKING            VARCHAR,
+    ATTRIBUTES_RESTAURANTSRESERVATIONS    VARCHAR,
+    ATTRIBUTES_GOODFORKIDS                BOOLEAN,
+    ATTRIBUTES_RESTAURANTSTAKEOUT         BOOLEAN,
+    ATTRIBUTES_CATERS                     BOOLEAN,
+    ATTRIBUTES_WIFI                       VARCHAR,
+    ATTRIBUTES_RESTAURANTSDELIVERY        BOOLEAN,
+    ATTRIBUTES_HASTV                      BOOLEAN,
+    ATTRIBUTES_RESTAURANTSPRICERANGE2     NUMBER,
+    ATTRIBUTES_ALCOHOL                    VARCHAR,
+    ATTRIBUTES_MUSIC                      VARCHAR,
+    ATTRIBUTES_BUSINESSACCEPTSBITCOIN     BOOLEAN,
+    ATTRIBUTES_GOODFORDANCING             BOOLEAN,
+    ATTRIBUTES_DOGSALLOWED                BOOLEAN,
+    ATTRIBUTES_BESTNIGHTS                 VARCHAR,
+    ATTRIBUTES_RESTAURANTSGOODFORGROUPS   BOOLEAN,
+    ATTRIBUTES_OUTDOORSEATING             BOOLEAN,
+    ATTRIBUTES_HAPPYHOUR                  BOOLEAN,
+    ATTRIBUTES_RESTAURANTSTABLESERVICE    BOOLEAN,
+    ATTRIBUTES_GOODFORMEAL                VARCHAR,
+    ATTRIBUTES_WHEELCHAIRACCESSIBLE       BOOLEAN,
+    ATTRIBUTES_AMBIENCE                   VARCHAR,
+    ATTRIBUTES_COATCHECK                  BOOLEAN,
+    ATTRIBUTES_DRIVETHRU                  BOOLEAN,
+    ATTRIBUTES_SMOKING                    VARCHAR,
+    ATTRIBUTES_BYOB                       BOOLEAN,
+    ATTRIBUTES_CORKAGE                    BOOLEAN,
+    CATEGORIES                            VARCHAR,
+    HOURS_MONDAY                          VARCHAR,
+    HOURS_TUESDAY                         VARCHAR,
+    HOURS_WEDNESDAY                       VARCHAR,
+    HOURS_THURSDAY                        VARCHAR,
+    HOURS_FRIDAY                          VARCHAR,
+    HOURS_SATURDAY                        VARCHAR,
+    HOURS_SUNDAY                          VARCHAR
+);
+
+create table STAGING.CHECKIN
+(
+    BUSINESS_ID VARCHAR,
+    DATE        VARCHAR
+);
+
+create table STAGING.COVID
+(
+    BUSINESS_ID              VARCHAR,
+    HIGHLIGHTS               VARCHAR,
+    DELIVERY_OR_TAKEOUT      VARCHAR,
+    GRUBHUB_ENABLED          VARCHAR,
+    CALL_TO_ACTION_ENABLED   VARCHAR,
+    REQUEST_A_QUOTE_ENABLED  VARCHAR,
+    COVID_BANNER             VARCHAR,
+    TEMPORARY_CLOSED_UNTIL   VARCHAR,
+    VIRTUAL_SERVICES_OFFERED VARCHAR
+);
+
+create table STAGING.PRECIPITATION
+(
+    DATE                 VARCHAR,
+    PRECIPITATION        VARCHAR,
+    PRECIPITATION_NORMAL DOUBLE
+);
+
+create table STAGING.REVIEW
+(
+    REVIEW_ID   VARCHAR,
+    USER_ID     VARCHAR,
+    BUSINESS_ID VARCHAR,
+    STARS       NUMBER(3, 2),
+    USEFUL      NUMBER,
+    FUNNY       NUMBER,
+    COOL        NUMBER,
+    TEXT        VARCHAR,
+    TIMESTAMP   TIMESTAMPNTZ
+);
+
+create table STAGING.TEMPERATURE
+(
+    DATE       VARCHAR,
+    MIN        DOUBLE,
+    MAX        DOUBLE,
+    NORMAL_MIN DOUBLE,
+    NORMAL_MAX DOUBLE
+);
+
+create table STAGING.TIP
+(
+    USER_ID          VARCHAR,
+    BUSINESS_ID      VARCHAR,
+    TEXT             VARCHAR,
+    TIMESTAMP        TIMESTAMPNTZ,
+    COMPLIMENT_COUNT NUMBER
+);
+
+create table STAGING.USER
+(
+    USER_ID            VARCHAR,
+    NAME               VARCHAR,
+    REVIEW_COUNT       NUMBER,
+    YELPING_SINCE      TIMESTAMPNTZ,
+    USEFUL             NUMBER,
+    FUNNY              NUMBER,
+    COOL               NUMBER,
+    ELITE              VARCHAR,
+    FRIENDS            VARCHAR,
+    FANS               NUMBER,
+    AVERAGE_STARS      NUMBER(3, 2),
+    COMPLIMENT_HOT     NUMBER,
+    COMPLIMENT_MORE    NUMBER,
+    COMPLIMENT_PROFILE NUMBER,
+    COMPLIMENT_CUTE    NUMBER,
+    COMPLIMENT_LIST    NUMBER,
+    COMPLIMENT_NOTE    NUMBER,
+    COMPLIMENT_PLAIN   NUMBER,
+    COMPLIMENT_COOL    NUMBER,
+    COMPLIMENT_FUNNY   NUMBER,
+    COMPLIMENT_WRITER  NUMBER,
+    COMPLIMENT_PHOTOS  NUMBER
+);
+
